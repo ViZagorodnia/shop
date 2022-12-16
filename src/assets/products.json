@@ -1,0 +1,68 @@
+{
+  "productsList": [
+    {"id": 1,
+    "name": "MacBook",
+    "description": "256Gb MGN63 Space Grey 2020",
+    "price": 42000,
+    "category": "laptop",
+    "isAvailable": true,
+    "additionalInfo": "Apple M2 chip"
+   },
+    {"id": 2,
+    "name": "Lenovo IdeaPad",
+    "description": "256Gb MGN63 Space Grey 2020",
+    "price": 42000,
+    "category": "laptop",
+    "isAvailable": true,
+    "additionalInfo": "Apple M2 chip"
+   },
+    {"id": 3,
+    "name": "Lenovo Gaming 3",
+    "description": "256Gb MGN63 Space Grey 2020",
+    "price": 42000,
+    "category": "laptop",
+    "isAvailable": true,
+    "additionalInfo": "Apple M2 chip"
+    },
+    {"id": 4,
+    "name": "MacBook",
+    "description": "256Gb MGN63 Space Grey 2020",
+    "price": 42000,
+    "category": "laptop",
+    "isAvailable": true,
+    "additionalInfo": "Apple M2 chip"
+   },
+    {"id": 5,
+    "name": "Lenovo IdeaPad",
+    "description": "256Gb MGN63 Space Grey 2020",
+    "price": 42000,
+    "category": "laptop",
+    "isAvailable": true,
+    "additionalInfo": "Apple M2 chip"
+   },
+    {"id": 6,
+    "name": "Lenovo Gaming 3",
+    "description": "256Gb MGN63 Space Grey 2020",
+    "price": 42000,
+    "category": "laptop",
+    "isAvailable": true,
+    "additionalInfo": "Apple M2 chip"
+    },
+    {"id": 7,
+    "name": "Lenovo IdeaPad",
+    "description": "256Gb MGN63 Space Grey 2020",
+    "price": 42000,
+    "category": "laptop",
+    "isAvailable": true,
+    "additionalInfo": "Apple M2 chip"
+   },
+    {"id": 8,
+    "name": "Lenovo Gaming 3",
+    "description": "256Gb MGN63 Space Grey 2020",
+    "price": 42000,
+    "category": "laptop",
+    "isAvailable": true,
+    "additionalInfo": "Apple M2 chip"
+    }
+  ]
+}

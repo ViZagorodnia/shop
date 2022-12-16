@@ -1,0 +1,12 @@
+<div class="cart">
+  <div class="lead">Cart</div>
+  <div *ngFor="let item of items; trackBy: trackByItems">
+    <div class="item">
+      <span>{{item.name}}  </span>
+      <span>{{item.price}}</span>
+    </div>
+  </div>
+  <button class="btn btn-outline-primary btn-sm" (click)="onClearCart()">Clear cart</button>
+</div>
+
+
