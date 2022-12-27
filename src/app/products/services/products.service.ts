@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs'
 import { of } from 'rxjs'
 
-import * as productsData from '../assets/products.json'
+import * as productsData from '../../../assets/products.json'
 
 @Injectable({
   providedIn: 'root'

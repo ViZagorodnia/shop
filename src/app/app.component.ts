@@ -1,5 +1,5 @@
 import { Component, AfterContentChecked } from '@angular/core';
-import { CartService } from './cart.service';
+import { CartService } from './cart/services/cart.service';
 
 @Component({
   selector: 'app-root',
@@ -15,8 +15,6 @@ export class AppComponent implements AfterContentChecked {
 
   ngAfterContentChecked() {
     this.fullCart = this.cartService.isCartFull()
-    console.log(this.fullCart);
-
   }
 
 }

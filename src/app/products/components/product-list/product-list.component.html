@@ -1,0 +1,6 @@
+<div class="container row gx-3 d-flex justify-content-between">
+  <div class="card col-auto" *ngFor="let product of products">
+    <app-product [product]="product" (productSelect)="onProductSelect($event)"></app-product>
+  </div>
+</div>
+
