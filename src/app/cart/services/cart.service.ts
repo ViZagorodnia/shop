@@ -7,9 +7,15 @@ import { ProductModel } from '../../products/models/product-model';
 export class CartService {
 
   items: Array<ProductModel> = []
+  totalCost: number = 0
+  totalQuantity: number = 0
 
   addToCart(product: any) {
     this.items.push(product)
+    this.totalCost += product.price
+    this.totalQuantity += 1
+    console.log('Cost - ' + this.totalCost, ' Quantity - ' + this.totalQuantity)
+
   }
 
   getItems() {
@@ -25,6 +31,9 @@ export class CartService {
 
   cleanCart() {
     this.items = []
+    this.totalCost = 0
+    this.totalQuantity = 0
+    console.log('Cost - ' + this.totalCost, ' Quantity - ' + this.totalQuantity)
     return this.items
   }
 }

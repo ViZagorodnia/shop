@@ -2,8 +2,8 @@
   <div class="card-body">
     <h5 class="card-title">{{product.name}}</h5>
     <p class="card-text">{{product.description}}</p>
-    <p class="card-text">{{product.price}}</p>
-    <button class="btn btn-primary btn-sm" (click)="onAddToCart(product)" [disabled]="!product.isAvailable">
+    <p class="card-text">{{product.price | currency:'USD':'symbol':'4.0'}}</p>
+    <button class="btn btn-success btn-sm" (click)="onAddToCart(product)" [disabled]="!product.isAvailable">
       Buy item
     </button>
   </div>

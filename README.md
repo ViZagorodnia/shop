@@ -10,3 +10,6 @@ CartListComponent, ProductListComponent, ProductComponent, ProductModel
 ## Changes on 27 Dec
 Refactored app to module system. Created CartModule, OrdersModule, ProductsModule, SharedModule
 ProductComponent only represent content, ProductListComponent make all func(render products, adding items to the cart), implements Output and Input for transferring product data
+
+## Changes on 29 Dec
+Refactored CartListComponent, add methods to calculate amount of items in cart, change style of cart to table view

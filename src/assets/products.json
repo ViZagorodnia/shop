@@ -3,7 +3,7 @@
     {"id": 1,
     "name": "MacBook 1",
     "description": "256Gb MGN63 Space Grey 2020",
-    "price": 142000,
+    "price": 2000,
     "category": "laptop",
     "isAvailable": true,
     "additionalInfo": "Apple M2 chip"
@@ -11,7 +11,7 @@
     {"id": 2,
     "name": "Lenovo IdeaPad 2",
     "description": "256Gb MGN63 Space Grey 2020",
-    "price": 52000,
+    "price": 1200,
     "category": "laptop",
     "isAvailable": false,
     "additionalInfo": "Apple M2 chip"
@@ -19,7 +19,7 @@
     {"id": 3,
     "name": "Lenovo Gaming 0",
     "description": "256Gb MGN63 Space Grey 2020",
-    "price": 32000,
+    "price": 3000,
     "category": "laptop",
     "isAvailable": true,
     "additionalInfo": "Apple M2 chip"
@@ -27,7 +27,7 @@
     {"id": 4,
     "name": "MacBook",
     "description": "256Gb MGN63 Space Grey 2020",
-    "price": 42000,
+    "price": 2500,
     "category": "laptop",
     "isAvailable": true,
     "additionalInfo": "Apple M2 chip"
@@ -35,7 +35,7 @@
     {"id": 5,
     "name": "Lenovo IdeaPad 6",
     "description": "256Gb MGN63 Space Grey 2020",
-    "price": 12000,
+    "price": 1300,
     "category": "laptop",
     "isAvailable": false,
     "additionalInfo": "Apple M2 chip"
@@ -43,7 +43,7 @@
     {"id": 6,
     "name": "Lenovo Gaming 4",
     "description": "256Gb MGN63 Space Grey 2020",
-    "price": 24000,
+    "price": 2300,
     "category": "laptop",
     "isAvailable": true,
     "additionalInfo": "Apple M2 chip"
@@ -51,7 +51,7 @@
     {"id": 7,
     "name": "Lenovo IdeaPad1",
     "description": "256Gb MGN63 Space Grey 2020",
-    "price": 4000,
+    "price": 6000,
     "category": "laptop",
     "isAvailable": true,
     "additionalInfo": "Apple M2 chip"
@@ -59,7 +59,7 @@
     {"id": 8,
     "name": "Lenovo Gaming 3",
     "description": "256Gb MGN63 Space Grey 2020",
-    "price": 15000,
+    "price": 1000,
     "category": "laptop",
     "isAvailable": true,
     "additionalInfo": "Apple M2 chip"
