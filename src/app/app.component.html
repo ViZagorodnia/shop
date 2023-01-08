@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="display-5 headline">Apple store</div>
+  <div class="display-5 headline" #appTitle></div>
   <app-cart-list *ngIf="fullCart; else emptyCart"></app-cart-list>
   <ng-template #emptyCart>
     <div class="lead cart-message">Your cart is empty</div>

@@ -1,7 +1,7 @@
 import { Component, AfterContentChecked, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
-import { ProductModel } from '../../../products/models/product-model';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { CartItemModel } from '../../models/cart-model';
 
 @Component({
   selector: 'app-cart-list',
@@ -9,27 +9,39 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./cart-list.component.sass']
 })
 export class CartListComponent implements OnInit, AfterContentChecked {
-  items: Array<ProductModel> = []
+  items: Array<CartItemModel> = []
   totalQuantity: number = 0
   totalCost: number = 0
   faTrash = faTrash
 
   constructor(private cartService: CartService) {
-    this.items = this.cartService.getItems()
    }
 
   ngOnInit(): void {
+    this.items = this.cartService.getItems()
   }
 
   ngAfterContentChecked(): void {
-    this.totalCost = this.cartService.totalCost
-    this.totalQuantity = this.cartService.totalQuantity
+    this.totalCost = this.cartService.getTotalCost()
+    this.totalQuantity = this.cartService.getTotalQuantity()
   }
 
   trackByItems(index: number, item: any): number { return item.id }
 
-  onClearCart() {
-    this.cartService.cleanCart()
+  onClearCart(): void {
+    this.cartService.onClearCart()
+  }
+
+  onDeleteItem(item: CartItemModel) {
+    this.cartService.onDeleteItem(item)
+  }
+
+  onQuantityDecrease(item: CartItemModel) {
+    this.cartService.onQuantityDecrease(item)
+  }
+
+  onQuantityIncrease(item: CartItemModel) {
+    this.cartService.onQuantityIncrease(item)
   }
 
 }

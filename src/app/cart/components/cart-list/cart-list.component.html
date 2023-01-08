@@ -1,32 +1,22 @@
 <div class="cart">
-  <div class="header">
-    <h2>Cart</h2>
-    <button class="btn btn-outline-dark btn-sm" (click)="onClearCart()">
-      <fa-icon [icon]="faTrash"></fa-icon>
-    </button>
-  </div>
-
-  <div class="table-responsive">
-    <table class="table table-striped table-sm">
-      <thead>
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Quantity</th>
-          <th scope="col">Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of items; trackBy: trackByItems">
-          <td>{{item.name}}</td>
-          <td>1</td>
-          <td>{{item.price | currency:'USD':'symbol':'4.0'}}</td>
-        </tr>
-        <tr>
-          <td>Total</td>
-          <td>{{totalQuantity}}</td>
-          <td>{{totalCost | currency:'USD':'symbol':'4.0'}}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="container">
+    <div class="header">
+      <h2>Cart</h2>
+      <button class="btn btn-outline-dark btn-sm" (click)="onClearCart()">
+        <fa-icon [icon]="faTrash"></fa-icon>
+      </button>
+    </div>
+    <app-cart-item appHighlight
+                   [item]="item"
+                   (deleteItem)="onDeleteItem($event)"
+                   (quantityDecrease)="onQuantityDecrease($event)"
+                   (quantityIncrease)="onQuantityIncrease($event)"
+                   *ngFor="let item of items; trackBy: trackByItems">
+    </app-cart-item>
+    <div class="total">
+      <div class="text noShrink">Go to checkout</div>
+      <div class="quantity">{{totalQuantity}}</div>
+      <div class="cost">{{totalCost | currency:'USD':'symbol':'4.0'}}</div>
+    </div>
   </div>
 </div>

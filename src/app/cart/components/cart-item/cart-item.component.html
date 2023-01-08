@@ -1,0 +1,19 @@
+ <div class="cartItem">
+  <div class="noShrink">{{item.name}}</div>
+  <div>
+    <button class="btn btn-outline-dark btn-sm right-btn" (click)="onIncrease(item)">
+      <fa-icon [icon]="faPlus"></fa-icon>
+    </button>
+    <span>{{item.quantity}}</span>
+    <button class="btn btn-outline-dark btn-sm left-btn" (click)="onDecrease(item)">
+      <fa-icon [icon]="faMinus"></fa-icon>
+    </button>
+  </div>
+  <div>
+    <span>{{item.price | currency:'USD':'symbol':'4.0'}}</span>
+    <button class="btn btn-outline-dark btn-sm left-btn" (click)="onDeleteItem(item)">
+      <fa-icon [icon]="faXmark"></fa-icon>
+    </button>
+  </div>
+ </div>
+

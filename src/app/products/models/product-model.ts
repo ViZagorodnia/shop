@@ -6,4 +6,5 @@ export interface ProductModel {
   category: string
   isAvailable: boolean
   additionalInfo: string
+  stock: number
 }
