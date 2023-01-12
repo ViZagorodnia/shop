@@ -16,7 +16,7 @@ import { ModalMessageComponent } from './components/modal-message/modal-message.
     CommonModule
   ],
   exports: [
-    ProductComponent,
+    // ProductComponent,
     ProductListComponent
   ]
 })
