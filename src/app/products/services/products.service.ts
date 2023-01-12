@@ -12,7 +12,9 @@ export class ProductsService {
 
   data = productsData
 
-  constructor (private http: HttpClient) {}
+  constructor (
+    // private http: HttpClient
+  ) {}
 
   getProducts (): Observable<any> {
     return of(this.data)
