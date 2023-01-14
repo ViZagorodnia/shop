@@ -30,3 +30,13 @@ Upgraded Angular from 13 to 14v
 Adding dynamic component to show ModalMessageComponent
 Adding ngClass to ProductComponent - using HostListener change hovered variable to use ngClass 
 
+## Changes on 12 Jan
+Created: ConfigOptionsService with get and set config methods with Partial type. Added setConfigProperty(key: keyof..., value: any)
+Created ConstantsService registrated in FirstComponent with useValue method
+Created GeneratorService and GeneratorFactory to generate string of n length containing a-z, A-Z, 0-9 symbols
+Registered for testing purposes in FirstComponent
+
+## Changes on 12 Jan
+Created genId service with method of generating sequence of numbers(possibility to set any number of items) and add it to generator service.
+Create LocalStorage service, registered it in FirstComponent using method useValue
+Created directive whitch change font weight depends on input value (use Renderer2)

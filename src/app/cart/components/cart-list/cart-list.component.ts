@@ -1,7 +1,7 @@
-import { Component, AfterContentChecked, OnInit } from '@angular/core';
-import { CartService } from '../../services/cart.service';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { CartItemModel } from '../../models/cart-model';
+import { Component, AfterContentChecked, OnInit } from '@angular/core'
+import { CartService } from '../../services/cart.service'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { CartItemModel } from '../../models/cart-model'
 
 @Component({
   selector: 'app-cart-list',

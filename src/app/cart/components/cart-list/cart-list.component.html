@@ -11,7 +11,7 @@
                    (deleteItem)="onDeleteItem($event)"
                    (quantityDecrease)="onQuantityDecrease($event)"
                    (quantityIncrease)="onQuantityIncrease($event)"
-                   *ngFor="let item of items; trackBy: trackByItems">
+                   *ngFor="let item of items trackBy: trackByItems">
     </app-cart-item>
     <div class="total">
       <div class="text noShrink">Go to checkout</div>

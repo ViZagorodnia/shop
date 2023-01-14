@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { CartItemModel } from '../../models/cart-model';
-import { faPlus, faMinus, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core'
+import { CartItemModel } from '../../models/cart-model'
+import { faPlus, faMinus, faXmark } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-cart-item',
