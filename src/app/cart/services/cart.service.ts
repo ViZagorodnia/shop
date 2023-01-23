@@ -8,6 +8,8 @@ import {CartItemModel} from '../models/cart-model'
 export class CartService {
 
   items: Array<CartItemModel> = []
+
+  // эти два поля можно объединить, если использовать тип Tuple
   totalCost: number = 0
   totalQuantity: number = 0
 
