@@ -1,6 +1,6 @@
 <img src="../../assets/macbook.jfif" class="card-img-top" [ngClass]="{'hover-img': hovered}" alt="...">
 <div class="card-body">
-  <h5 class="card-title">{{product.name}}</h5>
+  <h5 class="card-title">{{product.name | uppercase}}</h5>
   <p class="card-text">{{product.description}}</p>
   <p class="card-text">{{product.price | currency:'USD':'symbol':'4.0'}}</p>
   <button class="btn btn-success btn-sm" (click)="onAddToCart(product)" [disabled]="!product.isAvailable">

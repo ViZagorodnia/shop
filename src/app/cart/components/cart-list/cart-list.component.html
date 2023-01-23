@@ -6,12 +6,36 @@
         <fa-icon [icon]="faTrash"></fa-icon>
       </button>
     </div>
+
+    <div class="row justify-content-md-left alignRow">
+      <div class="col-md-auto" style="--bs-body-line-height: 30px">Filter by:</div>
+      <div class="col-md-auto">
+        <select class="form-select" [(ngModel)]="selectedFilter">
+          <option value="name">Name</option>
+          <option value="price">Price</option>
+          <option value="quantity">Quantity</option>
+        </select>
+      </div>
+
+      <div class="col-md-auto">
+        <button (click)="turnDetUp()" class="btn btn-outline-dark"
+          style="--bs-btn-border-color: none; --bs-btn-padding-x: 0.55rem; --bs-btn-padding-y: 0.175rem;">
+          <fa-icon [icon]="faUp"></fa-icon>
+        </button>
+        <button (click)="turnDetDown()" class="btn btn-outline-dark"
+          style="--bs-btn-border-color: none; --bs-btn-padding-x: 0.55rem; --bs-btn-padding-y: 0.175rem;">
+          <fa-icon [icon]="faDown"></fa-icon>
+        </button>
+      </div>
+
+    </div>
+
     <app-cart-item appHighlight
                    [item]="item"
                    (deleteItem)="onDeleteItem($event)"
                    (quantityDecrease)="onQuantityDecrease($event)"
                    (quantityIncrease)="onQuantityIncrease($event)"
-                   *ngFor="let item of items trackBy: trackByItems">
+                   *ngFor="let item of items | orderBy: selectedFilter : order; trackBy: trackByItems">
     </app-cart-item>
     <div class="total">
       <div class="text noShrink">Go to checkout</div>

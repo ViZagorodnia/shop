@@ -1,6 +1,6 @@
 import { Component, AfterContentChecked, OnInit } from '@angular/core'
 import { CartService } from '../../services/cart.service'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faUpLong, faDownLong } from '@fortawesome/free-solid-svg-icons'
 import { CartItemModel } from '../../models/cart-model'
 
 @Component({
@@ -13,6 +13,10 @@ export class CartListComponent implements OnInit, AfterContentChecked {
   totalQuantity: number = 0
   totalCost: number = 0
   faTrash = faTrash
+  faUp = faUpLong
+  faDown = faDownLong
+  selectedFilter: string = 'name'
+  order: boolean = true
 
   constructor(private cartService: CartService) {
    }
@@ -42,6 +46,14 @@ export class CartListComponent implements OnInit, AfterContentChecked {
 
   onQuantityIncrease(item: CartItemModel) {
     this.cartService.onQuantityIncrease(item)
+  }
+
+  turnDetUp() {
+    this.order = false
+  }
+
+  turnDetDown() {
+    this.order = true
   }
 
 }

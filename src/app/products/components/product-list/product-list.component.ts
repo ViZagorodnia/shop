@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core'
+import { Observable, Subscription } from 'rxjs'
 import { CartService } from 'src/app/cart/services/cart.service'
 import { ProductModel } from '../../models/product-model'
 import { ProductsService } from '../../services/products.service'
@@ -10,18 +11,17 @@ import { ProductsService } from '../../services/products.service'
 })
 export class ProductListComponent implements OnInit {
 
-  products: Array<ProductModel> = []
+  products!: Observable<ProductModel[]>
 
   @ViewChild('modal', {read: ViewContainerRef}) modal!: ViewContainerRef
 
   constructor(private productsService: ProductsService,
-              private cartService: CartService) { }
+              private cartService: CartService) {}
 
   ngOnInit(): void {
-    this.productsService.getProducts().subscribe(data => {
-      this.products = data.productsList
-      console.log(this.products)
-    })
+    this.products = this.productsService.Products$
+    console.log(this.products);
+
   }
 
   onProductSelect(product: any) {

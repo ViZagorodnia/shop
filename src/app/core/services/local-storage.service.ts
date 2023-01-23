@@ -9,9 +9,9 @@ export class LocalStorageService {
     localStorage.setItem(key, JSON.stringify(data))
   }
 
-  // getItem(key: string): any {
-  //   return JSON.parse(localStorage.getItem(key))
-  // }
+  getItem(key: string): any {
+    return JSON.parse(localStorage.getItem(key)!)
+  }
 
   removeItem(key: string): void {
     localStorage.removeItem(key)

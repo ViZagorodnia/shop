@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core'
 import { ProductComponent } from './components/product/product.component'
 import { ProductListComponent } from './components/product-list/product-list.component'
-import { CommonModule } from '@angular/common'
 import { ModalMessageComponent } from './components/modal-message/modal-message.component'
+import { SharedModule } from '../shared/shared.module'
 
 
 
@@ -13,7 +13,7 @@ import { ModalMessageComponent } from './components/modal-message/modal-message.
     ModalMessageComponent
   ],
   imports: [
-    CommonModule
+    SharedModule
   ],
   exports: [
     // ProductComponent,

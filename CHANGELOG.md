@@ -40,3 +40,11 @@ Registered for testing purposes in FirstComponent
 Created genId service with method of generating sequence of numbers(possibility to set any number of items) and add it to generator service.
 Create LocalStorage service, registered it in FirstComponent using method useValue
 Created directive whitch change font weight depends on input value (use Renderer2)
+
+## Changes on 20 Jan
+Refactored ProductService to return Observable and using async pipe
+
+## Changes on 23 Jan
+Created OrderByPipe, implement filtering for CartListComponent, declared in SharedModule
+Change order detection organized using buttons
+Export CommonModule, FormsModule from SharedModule and import SharedModule to other modules.
