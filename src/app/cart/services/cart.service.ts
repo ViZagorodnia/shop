@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { Router } from '@angular/router'
 import { ProductModel } from '../../products/models/product-model'
 import {CartItemModel} from '../models/cart-model'
 
@@ -6,6 +7,8 @@ import {CartItemModel} from '../models/cart-model'
   providedIn: 'root'
 })
 export class CartService {
+
+  constructor (private router: Router) {}
 
   items: Array<CartItemModel> = []
 
@@ -27,17 +30,18 @@ export class CartService {
     return this.items
   }
 
-  isCartFull(): boolean {
+  isCartEmpty(): boolean {
     if(this.items.length > 0) {
-      return true
+      return false
     }
-    return false
+    return true
   }
 
   onClearCart(): void {
     this.totalCost = 0
     this.totalQuantity = 0
     this.items = []
+    this.router.navigate([''])
   }
 
   getTotalCost(): number {
@@ -56,6 +60,7 @@ export class CartService {
 
   onQuantityDecrease(item: CartItemModel) {
     if(item.quantity === 1) {
+      this.router.navigate([''])
       return this.onDeleteItem(item)
     }
 
@@ -64,5 +69,8 @@ export class CartService {
 
   onDeleteItem(item: CartItemModel) {
     this.items.splice(this.items.indexOf(item), 1)
+    if(this.items.length === 0) {
+      this.router.navigate([''])
+    }
   }
 }

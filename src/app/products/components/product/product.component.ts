@@ -12,6 +12,7 @@ export class ProductComponent {
 
   @Input() product!: ProductModel
   @Output() productSelect: EventEmitter<ProductModel> = new EventEmitter<ProductModel>()
+  @Output() productDetails: EventEmitter<ProductModel> = new EventEmitter<ProductModel>()
 
   @HostListener('mouseenter', ['$event'])
   enter(event: Event) {
@@ -25,7 +26,11 @@ export class ProductComponent {
 
   constructor() { }
 
-  onAddToCart(product: any) {
+  onAddToCart(product: ProductModel) {
     this.productSelect.emit(product)
+  }
+
+  onDetails(product: ProductModel) {
+    this.productDetails.emit(product)
   }
 }

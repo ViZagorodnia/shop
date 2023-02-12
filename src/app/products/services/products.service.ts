@@ -1,90 +1,31 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { ProductModel } from '../models/product-model';
+import { Injectable } from '@angular/core'
+import { ProductModel } from '../models/product-model'
 
+export const Products : ProductModel[] = [
+  new ProductModel (1, 'MacBook 1', '256Gb MGN63 Space Grey 2020', 2000, 'laptop', true, 'Apple M2 chip', 3),
+  new ProductModel (2, 'Lenovo IdeaPad 2', '256Gb MGN63 Space Grey 2020', 1200, 'laptop', false, 'Apple M2 chip', 0),
+  new ProductModel (3, 'Lenovo Gaming 0', '256Gb MGN63 Space Grey 2020', 3000, 'laptop', true, 'Apple M2 chip', 1),
+  new ProductModel (4, 'MacBook', '256Gb MGN63 Space Grey 2020', 2500, 'laptop', true, 'Apple M2 chip', 30),
+  new ProductModel (5, 'Lenovo IdeaPad 6', '256Gb MGN63 Space Grey 2020', 1300, 'laptop', false, 'Apple M2 chip', 0),
+  new ProductModel (6, 'Lenovo Gaming 4', '256Gb MGN63 Space Grey 2020', 2300, 'laptop', true, 'Apple M2 chip', 13),
+  new ProductModel (7, 'Lenovo IdeaPad1', '256Gb MGN63 Space Grey 2020', 6000, 'laptop', true, 'Apple M2 chip', 2),
+  new ProductModel (8, 'Lenovo Gaming 3', '256Gb MGN63 Space Grey 2020', 1000, 'laptop', true, 'Apple M2 chip', 14)
+]
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
 
-  Products : ProductModel[] = [
-    {id: 1,
-    name: "MacBook 1",
-    description: "256Gb MGN63 Space Grey 2020",
-    price: 2000,
-    category: "laptop",
-    isAvailable: true,
-    additionalInfo: "Apple M2 chip",
-    stock: 3
-   },
-    {id: 2,
-    name: "Lenovo IdeaPad 2",
-    description: "256Gb MGN63 Space Grey 2020",
-    price: 1200,
-    category: "laptop",
-    isAvailable: false,
-    additionalInfo: "Apple M2 chip",
-    stock: 0
-   },
-    {id: 3,
-    name: "Lenovo Gaming 0",
-    description: "256Gb MGN63 Space Grey 2020",
-    price: 3000,
-    category: "laptop",
-    isAvailable: true,
-    additionalInfo: "Apple M2 chip",
-    stock: 1
-    },
-    {id: 4,
-    name: "MacBook",
-    description: "256Gb MGN63 Space Grey 2020",
-    price: 2500,
-    category: "laptop",
-    isAvailable: true,
-    additionalInfo: "Apple M2 chip",
-    stock: 30
-   },
-    {id: 5,
-    name: "Lenovo IdeaPad 6",
-    description: "256Gb MGN63 Space Grey 2020",
-    price: 1300,
-    category: "laptop",
-    isAvailable: false,
-    additionalInfo: "Apple M2 chip",
-    stock: 0
-   },
-    {id: 6,
-    name: "Lenovo Gaming 4",
-    description: "256Gb MGN63 Space Grey 2020",
-    price: 2300,
-    category: "laptop",
-    isAvailable: true,
-    additionalInfo: "Apple M2 chip",
-    stock: 13
-    },
-    {id: 7,
-    name: "Lenovo IdeaPad1",
-    description: "256Gb MGN63 Space Grey 2020",
-    price: 6000,
-    category: "laptop",
-    isAvailable: true,
-    additionalInfo: "Apple M2 chip",
-    stock: 2
-   },
-    {id: 8,
-    name: "Lenovo Gaming 3",
-    description: "256Gb MGN63 Space Grey 2020",
-    price: 1000,
-    category: "laptop",
-    isAvailable: true,
-    additionalInfo: "Apple M2 chip",
-    stock: 14
-    }
-  ]
-  Products$: BehaviorSubject<ProductModel[]>
+  productListPromise = Promise.resolve(Products)
 
-  constructor() {
-    this.Products$ = new BehaviorSubject<ProductModel[]>(this.Products)
-   }
+  getProducts(): Promise<ProductModel[]> {
+    return this.productListPromise
+  }
+
+  getProduct(id: NonNullable<ProductModel['id']> | string): Promise<ProductModel | undefined> {
+    return this.getProducts()
+      .then(products => products.find(product => product.id === +id))
+      .catch(() => Promise.reject('Error in getProduct'))
+  }
 }

@@ -1,0 +1,26 @@
+<button class="btn btn-light" (click)="onGoBack()">
+  <fa-icon [icon]="faLeft"></fa-icon>
+  <b> Go back</b>
+</button>
+<div class="row">
+  <div class="col-lg-6 col-xl-7 pt-4 order-2 order-lg-1 photoswipe-gallery">
+    <img src="../../assets/macbook.jfif" class="card-img-top" alt="...">
+  </div>
+  <div class="col-lg-6 col-xl-4 pt-4 order-1 order-lg-2 ms-lg-auto">
+    <div class="sticky-top">
+      <h1 class="display-4"><b>{{product.name}}</b></h1>
+      <div class="mb-4 h4"><b>Price </b>{{product.price | currency:'USD':'symbol':'4.0'}}</div>
+      <div class="d-flex align-items-center text-sm mb-3">{{product.description}}</div>
+      <div class="detail-option-heading mb-1"><b>Category</b></div>
+      <label for="material_0" class="btn btn-sm btn-outline-primary detail-option-btn-label mb-4">{{product.category}}</label>
+      <div class="w-100 mb-4">
+        <div class="d-grid h-100">
+          <button class="btn btn-dark" (click)="onAddToCart(product)" [disabled]="!product.isAvailable">
+            <fa-icon [icon]="faCart"></fa-icon>
+            Add to cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

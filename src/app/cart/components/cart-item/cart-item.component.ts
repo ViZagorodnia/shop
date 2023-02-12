@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core'
 import { CartItemModel } from '../../models/cart-model'
 import { faPlus, faMinus, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-cart-item',
@@ -19,7 +20,7 @@ export class CartItemComponent implements OnInit {
   @Output() quantityDecrease: EventEmitter<CartItemModel> = new EventEmitter<CartItemModel>()
   @Output() deleteItem: EventEmitter<CartItemModel> = new EventEmitter<CartItemModel>()
 
-  constructor() { }
+  constructor () { }
 
   ngOnInit(): void {
   }

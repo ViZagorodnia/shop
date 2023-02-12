@@ -1,7 +1,8 @@
-import { Component, AfterContentChecked, OnInit } from '@angular/core'
+import { Component, AfterContentChecked, OnInit, ViewChild, ViewContainerRef } from '@angular/core'
 import { CartService } from '../../services/cart.service'
-import { faTrash, faUpLong, faDownLong } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faUpLong, faDownLong, faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons'
 import { CartItemModel } from '../../models/cart-model'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-cart-list',
@@ -17,6 +18,10 @@ export class CartListComponent implements OnInit, AfterContentChecked {
   faDown = faDownLong
   selectedFilter: string = 'name'
   order: boolean = true
+  faBack = faChevronLeft
+  faCheckout = faChevronRight
+
+  @ViewChild('modal', {read: ViewContainerRef}) modal!: ViewContainerRef
 
   constructor(private cartService: CartService) {
    }
@@ -56,4 +61,18 @@ export class CartListComponent implements OnInit, AfterContentChecked {
     this.order = true
   }
 
+  checkCart(): void {
+    if(this.cartService.isCartEmpty()) {
+      // Adding dynamic modal message component
+    import('../../../products/components/modal-message/modal-message.component')
+    .then(module => {
+      const modalRef = this.modal.createComponent(module.ModalMessageComponent)
+      modalRef.instance.message = 'Your cart is empty'
+    })
+
+    setTimeout(() => {
+      this.modal.clear()
+    }, 1000)
+  }
+  }
 }

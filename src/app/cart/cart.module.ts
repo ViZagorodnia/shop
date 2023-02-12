@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core'
 import { SharedModule } from '../shared/shared.module'
-import { CartListComponent } from './components/cart-list/cart-list.component'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
-import { CartItemComponent } from './components/cart-item/cart-item.component'
+import { CartListComponent, CartItemComponent } from './components'
+import { RouterModule } from '@angular/router'
+import { ProductsModule } from '../products/products.module'
 
 
 
@@ -13,7 +14,9 @@ import { CartItemComponent } from './components/cart-item/cart-item.component'
   ],
   imports: [
     FontAwesomeModule,
-    SharedModule
+    SharedModule,
+    ProductsModule,
+    RouterModule
   ],
   exports: [
     // CartItemComponent,

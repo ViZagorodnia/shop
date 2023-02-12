@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core'
 import { SharedModule } from '../shared/shared.module'
+import { ProcessOrderComponent } from './components'
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [ProcessOrderComponent],
   imports: [
     SharedModule
   ]

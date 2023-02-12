@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core'
-import { ProductComponent } from './components/product/product.component'
-import { ProductListComponent } from './components/product-list/product-list.component'
-import { ModalMessageComponent } from './components/modal-message/modal-message.component'
+import { ProductComponent, ProductListComponent, ModalMessageComponent, ProductViewComponent } from './components'
 import { SharedModule } from '../shared/shared.module'
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
 
 
@@ -10,13 +9,15 @@ import { SharedModule } from '../shared/shared.module'
   declarations: [
     ProductComponent,
     ProductListComponent,
+    ProductViewComponent,
     ModalMessageComponent
   ],
   imports: [
-    SharedModule
+    SharedModule,
+    FontAwesomeModule
   ],
   exports: [
-    // ProductComponent,
+    ModalMessageComponent,
     ProductListComponent
   ]
 })

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 
 
 @Component({
@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core'
   styleUrls: ['./modal-message.component.sass']
 })
 export class ModalMessageComponent implements OnInit {
+
+  @Input() message: string = 'Congratulation! You add new item to the cart.'
 
   constructor() { }
 
