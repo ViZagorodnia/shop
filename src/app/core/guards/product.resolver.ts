@@ -17,7 +17,7 @@ export class ProductResolver implements Resolve<ProductModel> {
       private router: Router
     ) {}
 
-  resolve(route: ActivatedRouteSnapshot): Observable<ProductModel> {
+  resolve(route: ActivatedRouteSnapshot): Observable<ProductModel> | Promise<ProductModel> {
     console.log('Admin Product guard is called');
 
     if(!route.paramMap.has('productID')) {
@@ -26,12 +26,14 @@ export class ProductResolver implements Resolve<ProductModel> {
 
     const id = route.paramMap.get('productID')!
 
-    const product = Products.find(item => item.id === +id)
-    if(product) {
-      return of(product!)
-    }
-
-    this.router.navigate(['/admin'])
-    return EMPTY
+    return this.productService.getProduct(id)
+      .then(product => {
+        if (!product) {
+          this.router.navigate(['/admin'])
+          return Promise.reject('No Product');
+        } else {
+          return product;
+        }
+      });
   }
 }
