@@ -11,7 +11,7 @@ import { OrdersModule } from './orders/orders.module'
 import { AdminModule } from './admin/admin.module'
 import { Router, RouterModule } from '@angular/router'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
-import { AuthService } from './core/services/auth.service'
+import { AuthService } from './core'
 import { Subject, takeUntil } from 'rxjs'
 
 @Component({

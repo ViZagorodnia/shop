@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { HighlightDirective } from './directives/highlight.directive';
-import { FontsBoldDirective } from './directives/fonts-bold.directive';
-import { OrderByPipe } from './pipe/order-by.pipe'
-import { FormsModule } from '@angular/forms';
+import { HighlightDirective, FontsBoldDirective, OrderByPipe } from './'
+import { FormsModule } from '@angular/forms'
 
 
 

@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, ParamMap, Router } from '@angular/router'
 import { map, switchMap } from 'rxjs'
 import { ProductModel } from '../../models/product-model'
-import { ProductsService } from '../../services/products.service'
 import { faCartShopping, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { CartService } from 'src/app/cart/services/cart.service'
+import { ProductObservableService } from '../../services'
 
 @Component({
   selector: 'app-product-view',
@@ -18,7 +18,7 @@ export class ProductViewComponent implements OnInit {
   faLeft = faChevronLeft
 
   constructor(
-    private productsService: ProductsService,
+    private productObsevableService: ProductObservableService,
     private cartService: CartService,
     private router: Router,
     private route: ActivatedRoute) {}
@@ -32,7 +32,7 @@ export class ProductViewComponent implements OnInit {
     this.route.paramMap
       .pipe(
         switchMap((params: ParamMap) =>
-          this.productsService.getProduct(params.get('productID')!)
+          this.productObsevableService.getProduct(params.get('productID')!)
         ),
         // transform undefined => {}
         map(el => el ? el : {} as ProductModel)

@@ -1,0 +1,101 @@
+{
+  "productsList": [
+    {
+      "id": 1,
+      "name": "MacBook 111",
+      "description": "256Gb MGN63 Space Grey 2020",
+      "price": 9000,
+      "category": "laptop",
+      "isAvailable": true,
+      "additionalInfo": "Apple M2 chip",
+      "stock": 3
+    },
+    {
+      "id": 2,
+      "name": "MacBook 21",
+      "description": "256Gb MGN63 Space Grey 2020",
+      "price": 7000,
+      "category": "laptop",
+      "isAvailable": true,
+      "additionalInfo": "Apple M2 chip",
+      "stock": 5
+    },
+    {
+      "id": 3,
+      "name": "Lenovo Gaming 0",
+      "description": "256Gb MGN63 Space Grey 2020",
+      "price": 3000,
+      "category": "laptop",
+      "isAvailable": true,
+      "additionalInfo": "Apple M2 chip",
+      "stock": 1
+    },
+    {
+      "id": 4,
+      "name": "MacBook",
+      "description": "256Gb MGN63 Space Grey 2020",
+      "price": 2500,
+      "category": "laptop",
+      "isAvailable": true,
+      "additionalInfo": "Apple M2 chip",
+      "stock": 30
+    },
+    {
+      "id": 5,
+      "name": "Lenovo IdeaPad 6",
+      "description": "256Gb MGN63 Space Grey 2020",
+      "price": 1300,
+      "category": "laptop",
+      "isAvailable": false,
+      "additionalInfo": "Apple M2 chip",
+      "stock": 0
+    },
+    {
+      "id": 6,
+      "name": "Lenovo Gaming 4",
+      "description": "256Gb MGN63 Space Grey 2020",
+      "price": 2300,
+      "category": "laptop",
+      "isAvailable": true,
+      "additionalInfo": "Apple M2 chip",
+      "stock": 13
+    },
+    {
+      "id": 7,
+      "name": "Lenovo IdeaPad1",
+      "description": "256Gb MGN63 Space Grey 2020",
+      "price": 6000,
+      "category": "laptop",
+      "isAvailable": true,
+      "additionalInfo": "Apple M2 chip",
+      "stock": 2
+    },
+    {
+      "id": 8,
+      "name": "Lenovo Gaming 3",
+      "description": "256Gb MGN63 Space Grey 2020",
+      "price": 1000,
+      "category": "laptop",
+      "isAvailable": true,
+      "additionalInfo": "Apple M2 chip",
+      "stock": 14
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "firstName": "Anna",
+      "lastName": "Borisova"
+    },
+    {
+      "id": 2,
+      "firstName": "Boris",
+      "lastName": "Vlasov"
+    },
+    {
+      "id": 3,
+      "firstName": "Gennadiy",
+      "lastName": "Dmitriev"
+    }
+  ]
+}

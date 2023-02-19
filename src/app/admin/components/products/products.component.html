@@ -1,1 +1,23 @@
-<p>products works!</p>
+<div class="products-list" *ngFor="let product of products$ | async">
+  <div class="row d-flex align-items-center text-start text-md-center">
+    <div class="col-12 col-md-6">
+      <div class="d-flex align-items-center">
+        <img src="../../assets/macbook.jfif" class="card-img-top" alt="...">
+        <div class="cart-title text-start">
+          <p>{{product.name}}</p>
+          <p class="text-muted text-sm">{{product.description}}</p>
+          <p class="text-muted text-sm"><b>Category: </b>{{product.category}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mt-4 mt-md-0">
+      <div class="row align-items-center">
+        <div class="col-md-4">Price: {{product.price}}</div>
+        <div class="col-md-4">In stoch: {{product.stock}}</div>
+        <div class="col-md-4">
+          <button class="btn btn-dark btn-sm" (click)="onProductEdit(product)">Edit product</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,9 +3,9 @@ import {
   Router, Resolve,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import { EMPTY, Observable, of } from 'rxjs';
+import { catchError, EMPTY, Observable, of, switchMap, take } from 'rxjs';
+import { ProductObservableService } from 'src/app/products';
 import { ProductModel } from 'src/app/products/models/product-model';
-import { Products, ProductsService } from 'src/app/products/services/products.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ import { Products, ProductsService } from 'src/app/products/services/products.se
 export class ProductResolver implements Resolve<ProductModel> {
 
   constructor(
-      private productService: ProductsService,
+      private productObservableService: ProductObservableService,
       private router: Router
     ) {}
 
@@ -26,14 +26,21 @@ export class ProductResolver implements Resolve<ProductModel> {
 
     const id = route.paramMap.get('productID')!
 
-    return this.productService.getProduct(id)
-      .then(product => {
-        if (!product) {
-          this.router.navigate(['/admin'])
-          return Promise.reject('No Product');
+    return this.productObservableService.getProduct(id).pipe(
+      switchMap((product: ProductModel) => {
+        if (product) {
+          return of(product);
         } else {
-          return product;
+          this.router.navigate(['/admin']);
+          return EMPTY;
         }
-      });
+      }),
+      take(1),
+      catchError(() => {
+        this.router.navigate(['/products-list']);
+        // catchError MUST return observable
+        return EMPTY;
+      })
+    );
   }
 }

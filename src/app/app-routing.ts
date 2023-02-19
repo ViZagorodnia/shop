@@ -5,8 +5,7 @@ import { CartListComponent } from './cart'
 import { ProcessOrderComponent } from './orders'
 
 import { PathNotFoundComponent } from './path-not-found'
-import { AuthGuard } from './core/guards/auth.guard'
-import { IsCardEmptyGuard } from './core/guards/is-card-empty.guard'
+import { AuthGuard, IsCardEmptyGuard } from './core'
 
 export const APP_ROUTES: Routes = [
   {
