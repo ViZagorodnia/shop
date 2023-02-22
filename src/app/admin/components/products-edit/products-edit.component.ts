@@ -22,34 +22,31 @@ export class ProductsEditComponent implements OnInit, CanComponentDeactivate {
   constructor(
     private editProductService: EditProductService,
     private route: ActivatedRoute,
+    private router: Router,
     private location: Location,
     private productObservableService: ProductObservableService
   ) { }
 
   ngOnInit(): void {
-    this.route.data.pipe(
-        map((data: Data) => data['product'])).subscribe((product: ProductModel) => {
-      this.product = { ...product }
-      console.log(product);
-
-      this.originalProduct = { ...product }
-    })
+    this.route.data.pipe(map((data: Data) => data['product'])).subscribe((product: ProductModel) => {
+      this.product = { ...product };
+      this.originalProduct = { ...product };
+    });
   }
 
   onSaveProduct(): void {
     const product = { ... this.product }
     //const method = product.id ? 'updateProduct' : 'createProduct'
-    console.log('Edited ', product);
-
-
     const observer = {
       next: (savedProduct: ProductModel) => {
         this.originalProduct = { ...savedProduct }
-        this.onGoBack();
+        product.id
+              ? // optional parameter: http://localhost:4200/users;editedUserID=2
+                this.router.navigate(['admin', { editedProductID: product.id }])
+              : this.onGoBack();
       },
       error: (err: any) => console.log(err)
     }
-
     this.sub = this.productObservableService.updateProduct(product).subscribe(observer)
   }
 

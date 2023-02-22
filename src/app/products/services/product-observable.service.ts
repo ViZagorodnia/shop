@@ -6,7 +6,7 @@ import { ProductsAPI } from './../product.config';
 import { ProductModel } from './../models/product-model';
 
 @Injectable({
-  providedIn: 'any'
+  providedIn: 'root'
 })
 export class ProductObservableService {
   constructor(
@@ -35,6 +35,8 @@ export class ProductObservableService {
   updateProduct(product: ProductModel): Observable<ProductModel> {
     const url = `${this.productsUrl}/${product.id}`
     const body = JSON.stringify(product)
+    console.log('body from update', body);
+
     return this.http
       .put<ProductModel>(url, body)
       .pipe(catchError(this.handleError));

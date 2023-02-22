@@ -33,6 +33,45 @@
               [(ngModel)]="product.description">
           </textarea>
         </div>
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input type="number"
+              class="form-control"
+              id="price" name="price"
+              placeholder="Price"
+              [(ngModel)]="product.price">
+        </div>
+        <div class="form-group">
+          <label for="category">Category</label>
+          <input type="text"
+              class="form-control"
+              id="category" name="category"
+              placeholder="Price"
+              [(ngModel)]="product.category">
+        </div>
+        <div class="form-group">
+          <label for="isAvailable">isAvailable</label>
+          <input type="checkbox"
+              class="form-control"
+              id="isAvailable" name="isAvailable"
+              [(ngModel)]="product.isAvailable">
+        </div>
+        <div class="form-group">
+          <label for="additionalInfo">additionalInfo</label>
+          <input type="text"
+              class="form-control"
+              id="additionalInfo" name="additionalInfo"
+              placeholder="additionalInfo"
+              [(ngModel)]="product.additionalInfo">
+        </div>
+        <div class="form-group">
+          <label for="stock">stock</label>
+          <input type="number"
+              class="form-control"
+              id="stock" name="stock"
+              placeholder="stock"
+              [(ngModel)]="product.stock">
+        </div>
         <button class="btn btn-primary"
           [disabled]="form.invalid"
           type="submit">Save

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { EMPTY, Observable, switchMap } from 'rxjs';
 import { ProductModel, ProductObservableService } from 'src/app/products';
 
 @Component({
@@ -12,6 +12,8 @@ export class ProductsComponent implements OnInit {
 
   products$!: Observable<Array<ProductModel>>
 
+  private editedProduct!: ProductModel
+
   constructor(
     private productObservableService: ProductObservableService,
     private route: ActivatedRoute,
@@ -20,6 +22,25 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.products$ = this.productObservableService.getProducts()
+
+    const observer = {
+      next: (product: ProductModel) => {
+        this.editedProduct = { ...product };
+        console.log(
+          `Last time you edited product ${JSON.stringify(this.editedProduct)}`
+        );
+      },
+      error: (err: any) => console.log(err)
+    };
+    this.route.paramMap
+      .pipe(
+        switchMap((params: ParamMap) => {
+          return params.has('editedProductID')
+            ? this.productObservableService.getProduct(params.get('editedProductID')!)
+            : EMPTY;
+        })
+      )
+      .subscribe(observer);
   }
 
   onProductEdit(product: ProductModel) {
