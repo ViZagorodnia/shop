@@ -39,20 +39,18 @@ export class ProductsEditComponent implements OnInit, CanComponentDeactivate {
   onSaveProduct(): void {
     const product = { ... this.product }
     //const method = product.id ? 'updateProduct' : 'createProduct'
-    this.productObservableService.updateProduct(product)
-    this.onGoBack()
     console.log('Edited ', product);
 
 
-    // const observer = {
-    //   next: (savedProduct: ProductModel) => {
-    //     this.originalProduct = { ...savedProduct }
-    //     this.onGoBack();
-    //   },
-    //   error: (err: any) => console.log(err)
-    // }
+    const observer = {
+      next: (savedProduct: ProductModel) => {
+        this.originalProduct = { ...savedProduct }
+        this.onGoBack();
+      },
+      error: (err: any) => console.log(err)
+    }
 
-    // this.sub = this.productObservableService[method](product).subscribe(observer)
+    this.sub = this.productObservableService.updateProduct(product).subscribe(observer)
   }
 
   onGoBack(): void {

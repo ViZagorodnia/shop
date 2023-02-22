@@ -1,14 +1,7 @@
 {
   "productsList": [
     {
-      "id": 1,
-      "name": "MacBook 111",
-      "description": "256Gb MGN63 Space Grey 2020",
-      "price": 9000,
-      "category": "laptop",
-      "isAvailable": true,
-      "additionalInfo": "Apple M2 chip",
-      "stock": 3
+      "id": 1
     },
     {
       "id": 2,
