@@ -6,6 +6,7 @@ import { APP_ROUTES } from './app/app-routing'
 
 import { environment } from './environments/environment'
 import { HttpClientModule } from '@angular/common/http'
+import { timingInterceptorProvider } from './app/core/interceptor/timing.interceptor'
 
 
 
@@ -16,6 +17,7 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(HttpClientModule),
+    timingInterceptorProvider,
     provideRouter(APP_ROUTES),
   ]
 })

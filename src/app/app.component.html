@@ -9,6 +9,10 @@
         <ng-template #loginBtn>
           <li class="nav-item"><button class="btn btn-light btn-sm" (click)="onLogin()">Login</button></li>
         </ng-template>
+        <li class="nav-item"  *ngIf="!isAdmin; else userBtn"><button class="btn btn-light btn-sm" (click)="switchRole()">Switch to Admin mode</button></li>
+        <ng-template #userBtn>
+          <li class="nav-item"><button class="btn btn-light btn-sm" (click)="switchRole()">Switch to User mode</button></li>
+        </ng-template>
       </ul>
       <div class="list-inline-item position-relative me-3">
         <a routerLink="/cart" class="cartIcon"><fa-icon [icon]="faCart"></fa-icon></a>

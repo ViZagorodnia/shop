@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient, type HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, type HttpErrorResponse } from '@angular/common/http';
 import { type Observable, throwError, catchError, retry, share, concatMap } from 'rxjs';
 
 import { ProductsAPI } from './../product.config';
@@ -37,8 +37,14 @@ export class ProductObservableService {
     const body = JSON.stringify(product)
     console.log('body from update', body);
 
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    }
+
     return this.http
-      .put<ProductModel>(url, body)
+      .put<ProductModel>(url, body, options)
       .pipe(catchError(this.handleError));
   }
 
@@ -46,8 +52,14 @@ export class ProductObservableService {
     const url = this.productsUrl
     const body = JSON.stringify(product)
 
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    }
+
     return this.http
-      .post<ProductModel>(url, body)
+      .post<ProductModel>(url, body, options)
       .pipe(catchError(this.handleError))
   }
 

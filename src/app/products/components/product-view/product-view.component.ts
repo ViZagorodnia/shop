@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute, ParamMap, Router } from '@angular/router'
+import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router'
 import { map, switchMap } from 'rxjs'
 import { ProductModel } from '../../models/product-model'
 import { faCartShopping, faChevronLeft } from '@fortawesome/free-solid-svg-icons'

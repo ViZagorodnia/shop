@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { ProductModel } from '../../products/models/product-model'
-import {CartItemModel} from '../models/cart-model'
+import { CartItemModel } from '../models/cart-model'
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,8 @@ export class CartService {
 
   addToCart(product: ProductModel) {
     let cartItem = this.items.find(item => item.id === product.id)
+    //console.log(this.cartPromiseService.addToCart(product))
+
     if(!cartItem) {
       this.items.push({id: product.id, name: product.name, price: product.price, quantity: 1})
     } else {
@@ -29,19 +31,19 @@ export class CartService {
   getItems() {
     return this.items
   }
+  //done
+  onClearCart(): void {
+    this.totalCost = 0
+    this.totalQuantity = 0
+    this.items = []
+    this.router.navigate([''])
+  }
 
   isCartEmpty(): boolean {
     if(this.items.length > 0) {
       return false
     }
     return true
-  }
-
-  onClearCart(): void {
-    this.totalCost = 0
-    this.totalQuantity = 0
-    this.items = []
-    this.router.navigate([''])
   }
 
   getTotalCost(): number {

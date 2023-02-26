@@ -23,6 +23,7 @@ import { Subject, takeUntil } from 'rxjs'
 export class AppComponent implements AfterContentChecked, AfterViewInit, OnDestroy {
   itemsQuantity: number = 0
   faCart = faCartShopping
+  isAdmin: boolean = false
 
   private unsubscribe: Subject<void> = new Subject()
 
@@ -55,9 +56,13 @@ export class AppComponent implements AfterContentChecked, AfterViewInit, OnDestr
       error: (err: any) => console.log(err),
       complete: () => console.log('[takeUntil] complete')
     }
-    this.authService.login()
+    this.authService.login(this.isAdmin)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(observer)
+  }
+
+  switchRole() {
+    this.isAdmin = !this.isAdmin
   }
 
   onLogout() {

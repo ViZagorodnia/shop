@@ -3,6 +3,7 @@ import { CartService } from '../../services/cart.service'
 import { faTrash, faUpLong, faDownLong, faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons'
 import { CartItemModel } from '../../models/cart-model'
 import { Router } from '@angular/router'
+import { CartPromiseService } from '../../services/cart-promise.service'
 
 @Component({
   selector: 'app-cart-list',
@@ -23,7 +24,7 @@ export class CartListComponent implements OnInit, AfterContentChecked {
 
   @ViewChild('modal', {read: ViewContainerRef}) modal!: ViewContainerRef
 
-  constructor(private cartService: CartService) {
+  constructor(private cartService: CartService, private cartPromiseService: CartPromiseService) {
    }
 
   ngOnInit(): void {

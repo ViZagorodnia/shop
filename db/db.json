@@ -1,7 +1,14 @@
 {
   "productsList": [
     {
-      "id": 1
+      "id": 1,
+      "name": "MacBook 12",
+      "description": "256Gb MGN63 Space Grey 2020",
+      "price": 7000,
+      "category": "laptop",
+      "isAvailable": true,
+      "additionalInfo": "Apple M2 chip",
+      "stock": 5
     },
     {
       "id": 2,
@@ -90,5 +97,7 @@
       "firstName": "Gennadiy",
       "lastName": "Dmitriev"
     }
+  ],
+  "cart": [
   ]
 }
