@@ -35,7 +35,7 @@
                    (deleteItem)="onDeleteItem($event)"
                    (quantityDecrease)="onQuantityDecrease($event)"
                    (quantityIncrease)="onQuantityIncrease($event)"
-                   *ngFor="let item of items | orderBy: selectedFilter : order; trackBy: trackByItems">
+                   *ngFor="let item of items | async">
     </app-cart-item>
     <div class="total">
       <div class="text noShrink">Total</div>

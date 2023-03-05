@@ -3,8 +3,8 @@ import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router'
 import { map, switchMap } from 'rxjs'
 import { ProductModel } from '../../models/product-model'
 import { faCartShopping, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
-import { CartService } from 'src/app/cart/services/cart.service'
 import { ProductObservableService } from '../../services'
+import { CartPromiseService } from 'src/app/cart/services/cart-promise.service'
 
 @Component({
   selector: 'app-product-view',
@@ -13,13 +13,13 @@ import { ProductObservableService } from '../../services'
 })
 export class ProductViewComponent implements OnInit {
 
-  product!: ProductModel
+  product: ProductModel = new ProductModel()
   faCart = faCartShopping
   faLeft = faChevronLeft
 
   constructor(
     private productObsevableService: ProductObservableService,
-    private cartService: CartService,
+    private cartPromiseService: CartPromiseService,
     private router: Router,
     private route: ActivatedRoute) {}
 
@@ -41,7 +41,7 @@ export class ProductViewComponent implements OnInit {
   }
 
   onAddToCart(product: ProductModel) {
-    this.cartService.addToCart(product)
+    this.cartPromiseService.addToCart(product)
     this.router.navigate(['/cart'])
   }
   onGoBack() {

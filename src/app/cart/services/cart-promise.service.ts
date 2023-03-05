@@ -12,6 +12,7 @@ import type { ProductModel } from 'src/app/products'
 export class CartPromiseService {
   totalCost: number = 0
   totalQuantity: number = 0
+  items: Array<CartItemModel> = []
 
   private cartUrl = 'http://localhost:3000/cart'
 
@@ -30,7 +31,7 @@ export class CartPromiseService {
         .catch(this.handleError)
   }
 
-  updateCart(cartItem: CartItemModel, operation: string): Promise<CartItemModel> {
+  updateCart(cartItem: CartItemModel): Promise<CartItemModel> {
     const url = `${this.cartUrl}/${cartItem.id}`
     const options = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -46,23 +47,45 @@ export class CartPromiseService {
     const url = this.cartUrl
     const request$ = this.http.get(url)
     return firstValueFrom(request$)
-      .then(response => response as CartItemModel[])
+      .then(response => {
+        this.items = response as CartItemModel[]
+        return response as CartItemModel[]
+      })
       .catch(this.handleError)
   }
 
-  deleteItems(cartItem: CartItemModel): Promise<CartItemModel> {
-    const request$ = this.http.delete(`${this.cartUrl}/${cartItem.id}`)
+  deleteItem(cartItem: CartItemModel): Promise<CartItemModel> {
+    const options = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    }
+    const request$ = this.http.delete(`${this.cartUrl}/${cartItem.id}`, options)
     return firstValueFrom(request$)
       .catch(this.handleError)
   }
 
   onClearCart(): Promise<CartItemModel> {
-    return firstValueFrom(this.http.delete(this.cartUrl))
+    const options = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    }
+    return firstValueFrom(this.http.delete(this.cartUrl, options))
       .catch(this.handleError)
   }
 
-  isCartEmpty(): void {
+  getTotalCost(): number {
+    this.totalCost = this.items.reduce((acc, item) => acc + (item.quantity * item.price), 0)
+    return this.totalCost
+  }
 
+  getTotalQuantity(): number {
+    this.totalQuantity = this.items.reduce((acc, item) => acc + item.quantity, 0)
+    return this.totalQuantity
+  }
+
+  isCartEmpty(): boolean {
+    if(this.items.length > 0) {
+      return false
+    }
+    return true
   }
 
   private handleError(error: any): Promise<any> {

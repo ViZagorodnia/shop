@@ -1,5 +1,4 @@
 import { Component, AfterContentChecked, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core'
-import { CartService } from './cart/services/cart.service'
 
 import { CommonModule } from '@angular/common'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
@@ -12,6 +11,7 @@ import { Router, RouterModule } from '@angular/router'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { AuthService } from './core'
 import { Subject, takeUntil } from 'rxjs'
+import { CartPromiseService } from './cart/services/cart-promise.service'
 
 @Component({
   selector: 'app-root',
@@ -30,7 +30,7 @@ export class AppComponent implements AfterContentChecked, AfterViewInit, OnDestr
   @ViewChild('appTitle')
   title!: ElementRef<HTMLHeadingElement>
 
-  constructor(private cartService: CartService, public authService: AuthService, private router: Router) {
+  constructor(private cartPromiseService: CartPromiseService, public authService: AuthService, private router: Router) {
   }
 
   ngOnDestroy(): void {
@@ -38,7 +38,7 @@ export class AppComponent implements AfterContentChecked, AfterViewInit, OnDestr
   }
 
   ngAfterContentChecked() {
-    this.itemsQuantity = this.cartService.getTotalQuantity()
+    this.itemsQuantity = this.cartPromiseService.getTotalQuantity()
   }
 
   ngAfterViewInit() {

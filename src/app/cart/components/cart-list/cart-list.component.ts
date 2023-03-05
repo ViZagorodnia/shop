@@ -1,5 +1,4 @@
 import { Component, AfterContentChecked, OnInit, ViewChild, ViewContainerRef } from '@angular/core'
-import { CartService } from '../../services/cart.service'
 import { faTrash, faUpLong, faDownLong, faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons'
 import { CartItemModel } from '../../models/cart-model'
 import { Router } from '@angular/router'
@@ -11,47 +10,64 @@ import { CartPromiseService } from '../../services/cart-promise.service'
   styleUrls: ['./cart-list.component.sass']
 })
 export class CartListComponent implements OnInit, AfterContentChecked {
-  items: Array<CartItemModel> = []
+  items!: Promise<CartItemModel[]>
   totalQuantity: number = 0
   totalCost: number = 0
+
   faTrash = faTrash
   faUp = faUpLong
   faDown = faDownLong
-  selectedFilter: string = 'name'
-  order: boolean = true
   faBack = faChevronLeft
   faCheckout = faChevronRight
 
+  selectedFilter: string = 'name'
+  order: boolean = true
+
   @ViewChild('modal', {read: ViewContainerRef}) modal!: ViewContainerRef
 
-  constructor(private cartService: CartService, private cartPromiseService: CartPromiseService) {
-   }
+  constructor(
+    private cartPromiseService: CartPromiseService,
+    private router: Router
+    ) {}
 
   ngOnInit(): void {
-    this.items = this.cartService.getItems()
+    this.items = this.cartPromiseService.getItems()
   }
 
   ngAfterContentChecked(): void {
-    this.totalCost = this.cartService.getTotalCost()
-    this.totalQuantity = this.cartService.getTotalQuantity()
+    this.totalCost = this.cartPromiseService.getTotalCost()
+    this.totalQuantity = this.cartPromiseService.getTotalQuantity()
   }
 
-  trackByItems(index: number, item: any): number { return item.id }
-
   onClearCart(): void {
-    this.cartService.onClearCart()
+    this.cartPromiseService.onClearCart()
+    this.router.navigate([''])
   }
 
   onDeleteItem(item: CartItemModel) {
-    this.cartService.onDeleteItem(item)
+    this.cartPromiseService.deleteItem(item)
+    if(this.cartPromiseService.isCartEmpty()) {
+      this.router.navigate([''])
+    }
   }
 
   onQuantityDecrease(item: CartItemModel) {
-    this.cartService.onQuantityDecrease(item)
+    if(item.quantity === 1) {
+      return this.onDeleteItem(item)
+    }
+    const updatedItem = {
+      ...item,
+      quantity: item.quantity--
+    }
+    this.cartPromiseService.updateCart(updatedItem)
   }
 
   onQuantityIncrease(item: CartItemModel) {
-    this.cartService.onQuantityIncrease(item)
+    const updatedItem = {
+      ...item,
+      quantity: item.quantity++
+    }
+    this.cartPromiseService.updateCart(updatedItem)
   }
 
   turnDetUp() {
@@ -63,7 +79,7 @@ export class CartListComponent implements OnInit, AfterContentChecked {
   }
 
   checkCart(): void {
-    if(this.cartService.isCartEmpty()) {
+    if(this.cartPromiseService.isCartEmpty()) {
       // Adding dynamic modal message component
     import('../../../products/components/modal-message/modal-message.component')
     .then(module => {

@@ -2,7 +2,7 @@
   "productsList": [
     {
       "id": 1,
-      "name": "MacBook 12",
+      "name": "MacBook 13",
       "description": "256Gb MGN63 Space Grey 2020",
       "price": 7000,
       "category": "laptop",
@@ -99,5 +99,17 @@
     }
   ],
   "cart": [
+    {
+      "id": 3,
+      "name": "Lenovo Gaming 0",
+      "price": 3000,
+      "quantity": 1
+    },
+    {
+      "id": 1,
+      "name": "MacBook 13",
+      "price": 7000,
+      "quantity": 1
+    }
   ]
 }

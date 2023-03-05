@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core'
 import { Router } from '@angular/router'
-import { Observable, switchMap } from 'rxjs'
-import { CartService } from 'src/app/cart/services/cart.service'
+import { Observable } from 'rxjs'
 import { ProductModel } from '../../models/product-model'
 import { ProductObservableService } from '../../../products/'
+import { CartPromiseService } from 'src/app/cart/services/cart-promise.service'
 
 @Component({
   selector: 'app-product-list',
@@ -17,7 +17,7 @@ export class ProductListComponent implements OnInit {
   @ViewChild('modal', {read: ViewContainerRef}) modal!: ViewContainerRef
 
   constructor(private productObservableService: ProductObservableService,
-              private cartService: CartService,
+              private cartPromiseService: CartPromiseService,
               private router: Router) {}
 
   ngOnInit(): void {
@@ -26,7 +26,7 @@ export class ProductListComponent implements OnInit {
 
   onProductSelect(product: ProductModel) {
     console.log('You buy new item')
-    this.cartService.addToCart(product)
+    this.cartPromiseService.addToCart(product)
 
     // Adding dynamic modal message component
     import('../modal-message/modal-message.component')
