@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { ProductsStoreModule } from './products/products-store.module';
+import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
+import { routerReducers, RouterEffects } from './router';
+import * as RouterActions from './router/';
 
 
 
@@ -10,7 +13,7 @@ import { ProductsStoreModule } from './products/products-store.module';
   declarations: [],
   imports: [
     CommonModule,
-    StoreModule.forRoot({}, {
+    StoreModule.forRoot(routerReducers, {
       // All checks will automatically be disabled in production builds
       runtimeChecks: {
         strictStateImmutability: true,      // default value is true
@@ -26,7 +29,11 @@ import { ProductsStoreModule } from './products/products-store.module';
         strictActionTypeUniqueness: true    // default value is false
       }
     }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([RouterEffects]),
+    StoreRouterConnectingModule.forRoot({
+      stateKey: 'router',
+      routerState: RouterState.Minimal
+    }),
     ProductsStoreModule
   ]
 })

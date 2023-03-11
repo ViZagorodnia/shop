@@ -20,12 +20,10 @@ export const reducer = createReducer(
       data,
       loading: false,
       loaded: true,
-      selectedProduct: null
     }
   }),
   on(
     ProductsActions.getProductsError,
-    ProductsActions.getProductError,
     (state, {error}) => {
     console.log('GET_PRODUCTS/PRODUCT_ERROR action being handled!');
     return {
@@ -33,24 +31,6 @@ export const reducer = createReducer(
       loading: false,
       loaded: false,
       error
-    }
-  }),
-  on(ProductsActions.getProduct, state => {
-    console.log('GET_Product action being handled!');
-    return {
-      ...state,
-      loading: true,
-      loaded: false
-    };
-  } ),
-  on(ProductsActions.getProductSuccess, (state, {product}) => {
-    console.log('GET_Product action being handled!');
-    const selectedProduct = {...product}
-    return {
-      ...state,
-      loading: false,
-      loaded: true,
-      selectedProduct
     }
   }),
   on(ProductsActions.createProduct, state => {

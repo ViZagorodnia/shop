@@ -59,18 +59,3 @@ export const deleteProductError = createAction(
   '[Delete Product Effect] DELETE_PRODUCT_ERROR',
   props<{ error: Error | string | null }>()
 );
-
-export const getProduct = createAction(
-  '[Add/Edit Product Page (App)] GET_PRODUCT',
-  props<{ productID: number }>()
-);
-
-export const getProductSuccess = createAction(
-  '[Get Product Effect] GET_PRODUCT_SUCCESS',
-  props<{ product: ProductModel }>()
-);
-
-export const getProductError = createAction(
-  '[Get Product Effect] GET_PRODUCT_ERROR',
-  props<{ error: Error | string | null }>()
-);

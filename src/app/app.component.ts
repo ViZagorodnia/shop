@@ -11,8 +11,18 @@ import { AdminModule } from './admin/admin.module'
 import { Router, RouterModule } from '@angular/router'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { AuthService } from './core'
-import { Subject, takeUntil } from 'rxjs'
+import { Subject, takeUntil, merge, tap } from 'rxjs'
 import { CartPromiseService } from './cart/services/cart-promise.service'
+// @ngrx
+import { Store } from '@ngrx/store';
+import {
+  AppState,
+  selectQueryParams,
+  selectRouteParams,
+  selectRouteData,
+  selectUrl
+} from './core/@ngrx';
+
 
 @Component({
   selector: 'app-root',
@@ -34,11 +44,21 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
   constructor(
     private cartPromiseService: CartPromiseService,
     public authService: AuthService,
+    private store: Store,
     private router: Router,
     @Inject(DOCUMENT) private document: any) {
   }
   ngOnInit() {
     this.itemsQuantity$ = this.cartPromiseService.getTotalQuantity()
+
+    // Router Selectors Demo
+    const url$ = this.store.select(selectUrl);
+    const queryParams$ = this.store.select(selectQueryParams);
+    const routeParams$ = this.store.select(selectRouteParams);
+    const routeData$ = this.store.select(selectRouteData);
+    const source$ = merge(url$, queryParams$, routeParams$, routeData$);
+    source$.pipe(tap(val => console.log(val))).subscribe();
+
   }
 
   ngOnDestroy(): void {

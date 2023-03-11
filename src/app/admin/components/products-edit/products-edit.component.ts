@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router, type UrlTree, type Data, ParamMap } from '@angular/router';
+import { Router, type UrlTree, type Data } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Store } from '@ngrx/store';
 import { Subject, takeUntil, Observable, Subscription } from 'rxjs';
-import { selectSelectedProduct } from 'src/app/core/@ngrx';
+import { selectSelectedProductByUrl } from 'src/app/core/@ngrx';
 import * as ProductsActions from '../../../core/@ngrx/products/products.actions'
+import * as RouterActions from './../../../core/@ngrx/router/router.actions'
 
 
 import { ProductModel } from '../../../products';
@@ -28,10 +29,6 @@ export class ProductsEditComponent implements OnInit, CanComponentDeactivate, On
 
   constructor(
     private editProductService: EditProductService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private location: Location,
-    //private productObservableService: ProductObservableService,
     private store: Store
   ) { }
 
@@ -41,7 +38,7 @@ export class ProductsEditComponent implements OnInit, CanComponentDeactivate, On
     //   this.originalProduct = { ...product };
     // });
 
-    let observer: any = {
+    const observer: any = {
       next: (product: ProductModel) => {
         if (product) {
           this.product = {...product};
@@ -58,24 +55,11 @@ export class ProductsEditComponent implements OnInit, CanComponentDeactivate, On
       }
     };
 
-    this.store.select(selectSelectedProduct)
+    this.store.select(selectSelectedProductByUrl)
           .pipe(
             takeUntil(this.componentDestroyed$)
           )
           .subscribe(observer);
-
-    observer = {
-      ...observer,
-      next: (params: ParamMap) => {
-        const id = params.get('productID');
-        if (id) {
-          this.store.dispatch(ProductsActions.getProduct({ productID: +id }));
-        }
-      }
-    };
-
-    this.route.paramMap.subscribe(observer);
-
   }
 
   ngOnDestroy(): void {
@@ -111,7 +95,7 @@ export class ProductsEditComponent implements OnInit, CanComponentDeactivate, On
 
   onGoBack(): void {
     this.onGoBackClick = true;
-    this.location.back()
+    this.store.dispatch(RouterActions.back())
   }
 
   canDeactivate():

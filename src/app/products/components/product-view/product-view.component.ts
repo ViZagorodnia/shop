@@ -1,50 +1,65 @@
-import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router'
-import { map, switchMap } from 'rxjs'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ProductModel } from '../../models/product-model'
 import { faCartShopping, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
-import { ProductObservableService } from '../../services'
 import { CartPromiseService } from 'src/app/cart/services/cart-promise.service'
+
+import { Store } from '@ngrx/store'
+import { Subject, takeUntil} from 'rxjs';
+import { selectSelectedProductByUrl } from 'src/app/core/@ngrx';
+import * as RouterActions from './../../../core/@ngrx/router/router.actions'
 
 @Component({
   selector: 'app-product-view',
   templateUrl: './product-view.component.html',
   styleUrls: ['./product-view.component.sass']
 })
-export class ProductViewComponent implements OnInit {
+export class ProductViewComponent implements OnInit, OnDestroy {
 
   product: ProductModel = new ProductModel(null, '', '', 1, '', true, '', 1)
   faCart = faCartShopping
   faLeft = faChevronLeft
 
+  private componentDestroyed$: Subject<void> = new Subject<void>();
+
   constructor(
-    private productObsevableService: ProductObservableService,
     private cartPromiseService: CartPromiseService,
-    private router: Router,
-    private route: ActivatedRoute) {}
+    private store: Store) {}
 
   ngOnInit(): void {
-    const observer = {
-      next: (product: ProductModel) => (this.product = { ...product }),
-      error: (err: any) => console.log(err)
-    }
+    const observer: any = {
+      next: (product: ProductModel) => {
+        if (product) {
+          this.product = {...product};
+        } else {
+          this.product = new ProductModel(null, '', '', 1, '', true, '', 1);
+        }
 
-    this.route.paramMap
+      },
+      error(err: any) {
+        console.log(err);
+      },
+      complete() {
+        console.log('Stream is completed');
+      }
+    };
+
+    this.store.select(selectSelectedProductByUrl)
       .pipe(
-        switchMap((params: ParamMap) =>
-          this.productObsevableService.getProduct(params.get('productID')!)
-        ),
-        // transform undefined => {}
-        map(el => el ? el : {} as ProductModel)
+        takeUntil(this.componentDestroyed$)
       )
-      .subscribe(observer)
+      .subscribe(observer);
+  }
+
+  ngOnDestroy(): void {
+    this.componentDestroyed$.next();
+    this.componentDestroyed$.complete();
   }
 
   onAddToCart(product: ProductModel) {
     this.cartPromiseService.addToCart(product)
-    this.router.navigate(['/cart'])
+    this.store.dispatch(RouterActions.go({path: ['/cart']}))
   }
   onGoBack() {
-    this.router.navigate([''])
+    this.store.dispatch(RouterActions.go({path: ['']}))
   }
 }

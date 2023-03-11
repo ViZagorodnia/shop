@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core'
-import { Router } from '@angular/router'
 import { Observable } from 'rxjs'
 //NgRx
 import { Store } from '@ngrx/store'
 import { selectProductsData, selectProductsError } from 'src/app/core/@ngrx'
 import * as ProductsActions from '../../../core/@ngrx/products/products.actions'
+import * as RouterActions from './../../../core/@ngrx/router/router.actions'
 
 import { ProductModel } from '../../models/product-model'
 import { CartPromiseService } from 'src/app/cart/services/cart-promise.service'
@@ -22,7 +22,6 @@ export class ProductListComponent implements OnInit {
 
   constructor(
               private cartPromiseService: CartPromiseService,
-              private router: Router,
               private store: Store) {}
 
   ngOnInit(): void {
@@ -49,6 +48,6 @@ export class ProductListComponent implements OnInit {
 
   onProductDetails(product: ProductModel) {
     const link = ['/product', product.id]
-    this.router.navigate(link)
+    this.store.dispatch(RouterActions.go({path: link}))
   }
 }

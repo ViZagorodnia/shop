@@ -6,6 +6,7 @@ import { type Observable, of, switchMap, map, catchError, concatMap } from 'rxjs
 import { ProductObservableService } from 'src/app/products'
 import { type ProductModel } from 'src/app/products'
 import * as ProductsActions from './products.actions'
+import * as RouterActions from '../router/router.actions'
 
 @Injectable()
 export class ProductsEffects {
@@ -23,19 +24,6 @@ export class ProductsEffects {
           map(products => ProductsActions.getProductsSuccess({ products })),
           catchError(error => of(ProductsActions.getProductsError({ error })))
         ))
-    )
-  )
-
-  getProduct$: Observable<Action> = createEffect(() =>
-    this.actions$.pipe(
-      ofType(ProductsActions.getProduct),
-      map(action => action.productID),
-      switchMap(productID =>
-        this.productObservableService.getProduct(productID).pipe(
-          map(product => ProductsActions.getProductSuccess({product})),
-          catchError(error => of(ProductsActions.getProductError({error})))
-        )
-      )
     )
   )
 
@@ -81,6 +69,15 @@ export class ProductsEffects {
       )
     )
   )
+
+  createUpdateProductSuccess$: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ProductsActions.createProductSuccess, ProductsActions.updateProductSuccess),
+      map(action =>
+        RouterActions.back()
+      )
+    );
+  });
 
 
 
