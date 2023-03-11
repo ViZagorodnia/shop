@@ -37,8 +37,8 @@ export class CartListComponent implements OnInit, AfterContentChecked {
   }
 
   ngAfterContentChecked(): void {
-    // this.totalCost$ = this.cartPromiseService.getTotalCost()
-    // this.totalQuantity$ = this.cartPromiseService.getTotalQuantity()
+    // this.totalCost$ = this.cartPromiseService.totalCost
+    // this.totalQuantity$ = this.cartPromiseService.totalQuantity
   }
 
   onClearCart(): void {

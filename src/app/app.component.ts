@@ -1,4 +1,4 @@
-import { Component, AfterContentChecked, ViewChild, ElementRef, AfterViewInit, OnDestroy, OnInit } from '@angular/core'
+import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy, OnInit } from '@angular/core'
 
 import { CommonModule } from '@angular/common'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
@@ -12,15 +12,16 @@ import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { AuthService } from './core'
 import { Subject, takeUntil } from 'rxjs'
 import { CartPromiseService } from './cart/services/cart-promise.service'
+import { RootStoreModule } from './core/@ngrx/root-store.module'
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass'],
-  imports: [CartModule, CommonModule, FontAwesomeModule, ProductsModule, SharedModule, OrdersModule, AdminModule, RouterModule]
+  imports: [CartModule, CommonModule, FontAwesomeModule, ProductsModule, SharedModule, OrdersModule, AdminModule, RootStoreModule, RouterModule]
 })
-export class AppComponent implements AfterContentChecked, AfterViewInit, OnDestroy, OnInit {
+export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
   itemsQuantity$!: Promise<number>
   faCart = faCartShopping
   isAdmin: boolean = false
@@ -38,10 +39,6 @@ export class AppComponent implements AfterContentChecked, AfterViewInit, OnDestr
 
   ngOnDestroy(): void {
     this.unsubscribe.complete()
-  }
-
-  ngAfterContentChecked() {
-   //this.itemsQuantity$ = this.cartPromiseService.getTotalQuantity()
   }
 
   ngAfterViewInit() {

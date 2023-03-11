@@ -25,7 +25,7 @@ export const APP_ROUTES: Routes = [
   },
   {
     path: 'order',
-    canActivate: [IsCardEmptyGuard],
+    //canActivate: [IsCardEmptyGuard],
     component: ProcessOrderComponent,
     title: 'Process your order'
   },

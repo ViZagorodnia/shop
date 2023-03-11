@@ -13,6 +13,7 @@ export class IsCardEmptyGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      return !this.cartPromiseService.isCartEmpty();
+      console.log(this.cartPromiseService.isCartEmpty())
+      return !this.cartPromiseService.isCartEmpty()
   }
 }

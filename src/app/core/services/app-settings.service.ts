@@ -1,6 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { settings } from 'cluster'
 import { catchError, map, Observable, of, retry, tap, throwError } from 'rxjs'
 
 import { AppSettings } from '../models/app-settings'
