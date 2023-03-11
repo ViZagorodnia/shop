@@ -1,4 +1,5 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy, OnInit } from '@angular/core'
+import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy, OnInit, Inject } from '@angular/core'
+import { DOCUMENT } from '@angular/common'
 
 import { CommonModule } from '@angular/common'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
@@ -12,14 +13,13 @@ import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { AuthService } from './core'
 import { Subject, takeUntil } from 'rxjs'
 import { CartPromiseService } from './cart/services/cart-promise.service'
-import { RootStoreModule } from './core/@ngrx/root-store.module'
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass'],
-  imports: [CartModule, CommonModule, FontAwesomeModule, ProductsModule, SharedModule, OrdersModule, AdminModule, RootStoreModule, RouterModule]
+  imports: [CartModule, CommonModule, FontAwesomeModule, ProductsModule, SharedModule, OrdersModule, AdminModule, RouterModule]
 })
 export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
   itemsQuantity$!: Promise<number>
@@ -31,7 +31,11 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild('appTitle')
   title!: ElementRef<HTMLHeadingElement>
 
-  constructor(private cartPromiseService: CartPromiseService, public authService: AuthService, private router: Router) {
+  constructor(
+    private cartPromiseService: CartPromiseService,
+    public authService: AuthService,
+    private router: Router,
+    @Inject(DOCUMENT) private document: any) {
   }
   ngOnInit() {
     this.itemsQuantity$ = this.cartPromiseService.getTotalQuantity()

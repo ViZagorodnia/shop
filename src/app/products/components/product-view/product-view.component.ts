@@ -13,7 +13,7 @@ import { CartPromiseService } from 'src/app/cart/services/cart-promise.service'
 })
 export class ProductViewComponent implements OnInit {
 
-  product: ProductModel = new ProductModel()
+  product: ProductModel = new ProductModel(null, '', '', 1, '', true, '', 1)
   faCart = faCartShopping
   faLeft = faChevronLeft
 

@@ -1,8 +1,12 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core'
 import { Router } from '@angular/router'
 import { Observable } from 'rxjs'
+//NgRx
+import { Store } from '@ngrx/store'
+import { selectProductsData, selectProductsError } from 'src/app/core/@ngrx'
+import * as ProductsActions from '../../../core/@ngrx/products/products.actions'
+
 import { ProductModel } from '../../models/product-model'
-import { ProductObservableService } from '../../../products/'
 import { CartPromiseService } from 'src/app/cart/services/cart-promise.service'
 
 @Component({
@@ -11,17 +15,21 @@ import { CartPromiseService } from 'src/app/cart/services/cart-promise.service'
   styleUrls: ['./product-list.component.sass']
 })
 export class ProductListComponent implements OnInit {
-
-  products$!: Observable<Array<ProductModel>>
+  products$!: Observable<ReadonlyArray<ProductModel>>
+  productsError$!: Observable<Error | string | null>
 
   @ViewChild('modal', {read: ViewContainerRef}) modal!: ViewContainerRef
 
-  constructor(private productObservableService: ProductObservableService,
+  constructor(
               private cartPromiseService: CartPromiseService,
-              private router: Router) {}
+              private router: Router,
+              private store: Store) {}
 
   ngOnInit(): void {
-    this.products$ = this.productObservableService.getProducts()
+    this.products$ = this.store.select(selectProductsData)
+    this.productsError$ = this.store.select(selectProductsError)
+    this.store.dispatch(ProductsActions.getProducts())
+
   }
 
   onProductSelect(product: ProductModel) {
