@@ -16,7 +16,7 @@
       </ul>
       <div class="list-inline-item position-relative me-3">
         <a routerLink="/cart" class="cartIcon"><fa-icon [icon]="faCart"></fa-icon></a>
-        <div class="navbar-icon-badge">{{itemsQuantity}}</div>
+        <div class="navbar-icon-badge">{{itemsQuantity$ | async}}</div>
       </div>
     </div>
   </nav>

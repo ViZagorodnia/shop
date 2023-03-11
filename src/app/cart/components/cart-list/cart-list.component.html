@@ -35,12 +35,12 @@
                    (deleteItem)="onDeleteItem($event)"
                    (quantityDecrease)="onQuantityDecrease($event)"
                    (quantityIncrease)="onQuantityIncrease($event)"
-                   *ngFor="let item of items | async">
+                   *ngFor="let item of items$ | async">
     </app-cart-item>
     <div class="total">
       <div class="text noShrink">Total</div>
-      <div class="quantity">{{totalQuantity}}</div>
-      <div class="cost">{{totalCost | currency:'USD':'symbol':'4.0'}}</div>
+      <div class="quantity">{{totalQuantity$ | async}}</div>
+      <div class="cost">{{totalCost$ | async | currency:'USD':'symbol':'4.0'}}</div>
     </div>
     <div class="navigation mt-3">
       <button class="btn btn-light backBtn" routerLink="/products-list">

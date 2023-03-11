@@ -99,17 +99,5 @@
     }
   ],
   "cart": [
-    {
-      "id": 3,
-      "name": "Lenovo Gaming 0",
-      "price": 3000,
-      "quantity": 1
-    },
-    {
-      "id": 1,
-      "name": "MacBook 13",
-      "price": 7000,
-      "quantity": 1
-    }
   ]
 }

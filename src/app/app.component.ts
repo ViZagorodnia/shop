@@ -1,4 +1,4 @@
-import { Component, AfterContentChecked, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core'
+import { Component, AfterContentChecked, ViewChild, ElementRef, AfterViewInit, OnDestroy, OnInit } from '@angular/core'
 
 import { CommonModule } from '@angular/common'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
@@ -20,8 +20,8 @@ import { CartPromiseService } from './cart/services/cart-promise.service'
   styleUrls: ['./app.component.sass'],
   imports: [CartModule, CommonModule, FontAwesomeModule, ProductsModule, SharedModule, OrdersModule, AdminModule, RouterModule]
 })
-export class AppComponent implements AfterContentChecked, AfterViewInit, OnDestroy {
-  itemsQuantity: number = 0
+export class AppComponent implements AfterContentChecked, AfterViewInit, OnDestroy, OnInit {
+  itemsQuantity$!: Promise<number>
   faCart = faCartShopping
   isAdmin: boolean = false
 
@@ -32,13 +32,16 @@ export class AppComponent implements AfterContentChecked, AfterViewInit, OnDestr
 
   constructor(private cartPromiseService: CartPromiseService, public authService: AuthService, private router: Router) {
   }
+  ngOnInit() {
+    this.itemsQuantity$ = this.cartPromiseService.getTotalQuantity()
+  }
 
   ngOnDestroy(): void {
     this.unsubscribe.complete()
   }
 
   ngAfterContentChecked() {
-    this.itemsQuantity = this.cartPromiseService.getTotalQuantity()
+   //this.itemsQuantity$ = this.cartPromiseService.getTotalQuantity()
   }
 
   ngAfterViewInit() {

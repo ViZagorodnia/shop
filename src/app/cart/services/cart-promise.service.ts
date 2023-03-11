@@ -1,26 +1,37 @@
-import { Injectable } from '@angular/core'
+import { Inject, Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 
 import { firstValueFrom } from 'rxjs'
 
-import type { CartItemModel } from '../models/cart-model'
 import type { ProductModel } from 'src/app/products'
+import { CartAPI } from '../cart.config'
+import CartItemModel from '../models/cart-model'
+import { Router } from '@angular/router'
 
 @Injectable({
   providedIn: 'any'
 })
 export class CartPromiseService {
-  totalCost: number = 0
-  totalQuantity: number = 0
-  items: Array<CartItemModel> = []
+  items$: Promise<CartItemModel[]>
 
-  private cartUrl = 'http://localhost:3000/cart'
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    @Inject(CartAPI) private cartUrl: string
+    ) {
+      this.items$ = this.getItems()
+    }
+  get totalCost(): Promise<number> {
+    return this.getTotalCost()
+  }
 
-  constructor(private http: HttpClient) {}
+  get totalQuantity(): Promise<number> {
+    return this.getTotalQuantity()
+  }
 
   addToCart(product: ProductModel): Promise<CartItemModel> {
     const url = this.cartUrl
-    const cartItem = {id: product.id, name: product.name, price: product.price, quantity: 1}
+    const cartItem: CartItemModel = new CartItemModel(product.id || 0, product.name || 'test', product.price || 0, 1)
     const options = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }
@@ -31,12 +42,32 @@ export class CartPromiseService {
         .catch(this.handleError)
   }
 
-  updateCart(cartItem: CartItemModel): Promise<CartItemModel> {
+  onQuantityIncrease(cartItem: CartItemModel): Promise<CartItemModel> {
     const url = `${this.cartUrl}/${cartItem.id}`
     const options = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }
-    const request$ = this.http.put(url, cartItem, options)
+    let updatedItem = new CartItemModel(cartItem.id, cartItem.name, cartItem.price, cartItem.quantity + 1)
+    const request$ = this.http.put(url, updatedItem, options)
+
+    return firstValueFrom(request$)
+      .then(response => response as CartItemModel)
+      .catch(this.handleError)
+  }
+
+  onQuantityDecrease(cartItem: CartItemModel): Promise<CartItemModel> {
+    const url = `${this.cartUrl}/${cartItem.id}`
+
+    if(cartItem.quantity === 1) {
+      return this.deleteItem(cartItem)
+    }
+    let updatedItem = new CartItemModel(cartItem.id, cartItem.name, cartItem.price, cartItem.quantity - 1)
+
+    const options = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    }
+
+    const request$ = this.http.put(url, updatedItem, options)
 
     return firstValueFrom(request$)
       .then(response => response as CartItemModel)
@@ -44,13 +75,8 @@ export class CartPromiseService {
   }
 
   getItems(): Promise<CartItemModel[]> {
-    const url = this.cartUrl
-    const request$ = this.http.get(url)
-    return firstValueFrom(request$)
-      .then(response => {
-        this.items = response as CartItemModel[]
-        return response as CartItemModel[]
-      })
+    return firstValueFrom(this.http.get(this.cartUrl))
+      .then(res => res as CartItemModel[])
       .catch(this.handleError)
   }
 
@@ -71,21 +97,37 @@ export class CartPromiseService {
       .catch(this.handleError)
   }
 
-  getTotalCost(): number {
-    this.totalCost = this.items.reduce((acc, item) => acc + (item.quantity * item.price), 0)
-    return this.totalCost
+  getTotalCost(): Promise<number> {
+    return this.items$
+      .then((items: any) => {
+        return (items as CartItemModel[]).reduce(
+          (acc, item) => acc + (item.quantity * item.price),
+          0
+        )
+      })
+      .catch(this.handleError)
   }
 
-  getTotalQuantity(): number {
-    this.totalQuantity = this.items.reduce((acc, item) => acc + item.quantity, 0)
-    return this.totalQuantity
+  getTotalQuantity(): Promise<number> {
+    return this.items$
+      .then((items: any) => {
+        return (items as CartItemModel[]).reduce(
+          (acc, item) => acc + item.quantity,
+          0
+        )
+      })
+      .catch(this.handleError)
   }
 
-  isCartEmpty(): boolean {
-    if(this.items.length > 0) {
-      return false
-    }
-    return true
+  isCartEmpty(): Promise<boolean> {
+    return this.items$
+      .then((items: any) => {
+        if((items as CartItemModel[]).length > 0) {
+          return false
+        }
+        return true
+      })
+      .catch(this.handleError)
   }
 
   private handleError(error: any): Promise<any> {
