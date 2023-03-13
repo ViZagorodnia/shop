@@ -10,5 +10,6 @@ export interface RouterStateUrl {
 }
 
 export interface RouterState {
-  router: RouterReducerState<RouterStateUrl>;
+  // router: RouterReducerState<RouterStateUrl>;
+  router: RouterReducerState;
 }
