@@ -14,7 +14,7 @@ export const reducer = createReducer(
   }),
   on(ProductsActions.getProductsSuccess, (state, { products }) => {
     console.log('GET_PRODUCTS_SUCCEESS action being handled!');
-    const data = {...products}
+    const data = [...products]
     return {
       ...state,
       data,
