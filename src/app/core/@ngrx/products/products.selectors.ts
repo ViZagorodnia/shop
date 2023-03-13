@@ -16,7 +16,7 @@ export const selectSelectedProductByUrl = createSelector(
   selectProductsData,
   selectRouterState,
   (products, router): ProductModel => {
-      const productID = router.state.params['productID'];
+      const productID = router.state.root.firstChild.params.productID
       if (productID && Array.isArray(products)) {
           return products.find(product => product.id === +productID);
       } else {

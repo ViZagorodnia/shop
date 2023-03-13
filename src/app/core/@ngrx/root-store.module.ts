@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from './../../../environments/environment';
+
 import { EffectsModule } from '@ngrx/effects';
 import { ProductsStoreModule } from './products/products-store.module';
 import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
 import { routerReducers, RouterEffects } from './router';
 import * as RouterActions from './router/';
+import { metaReducers } from './meta-reducers';
 
 
 
@@ -14,6 +18,7 @@ import * as RouterActions from './router/';
   imports: [
     CommonModule,
     StoreModule.forRoot(routerReducers, {
+      metaReducers,
       // All checks will automatically be disabled in production builds
       runtimeChecks: {
         strictStateImmutability: true,      // default value is true
@@ -29,6 +34,11 @@ import * as RouterActions from './router/';
         strictActionTypeUniqueness: true    // default value is false
       }
     }),
+    // Instrumentation must be imported after importing StoreModule (config is optional)
+    !environment.production ? StoreDevtoolsModule.instrument({
+      maxAge: 25,       // Retains last 25 states
+      autoPause: true   // Pauses recording actions and state changes when the extension window is not open
+    }) : [],
     EffectsModule.forRoot([RouterEffects]),
     StoreRouterConnectingModule.forRoot({
       stateKey: 'router',
